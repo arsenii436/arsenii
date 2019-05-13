@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="three.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<title></title>
+</head>
+<body>
+<input type="text" name="" id="r" min="0" max="50" placeholder="ведите размер">
+
+
+<input type="color" name="" id="input">
+<style type="text/css">
+
+</style>
+
+<canvas id="canvas"></canvas>
+<script>
+
+ //console.log(color)
+
+
+
+
+
+
+
+
+
+
+
+
+
+var r = document.getElementById('r').value
+
+
+ var down = false
+ var canvas = document.getElementById('canvas')
+ var colorm = []
+ var cord = []
+ var context = canvas.getContext("2d");
+//var e = event
+
+  canvas.addEventListener('mousedown',function (e){
+  down = true
+
+
+
+ })
+ canvas.addEventListener('mouseup',function (e){
+  down = false
+context.beginPath()
+cord.push("hhh")
+
+ })
+var r = document.getElementById('r').value
+ canvas.width = window.innerWidth;
+ canvas.height = window.innerHeight;
+
+
+ canvas.addEventListener('mousemove',function (e) {
+ var color = document.getElementById('input').value
+ var r = document.getElementById('r').value
+ context.lineWidth = r
+ console.log(color)
+ 	 	
+ 	 	if (down) {
+ 	 			
+ 	 			
+ 				context.lineWidth = r
+ 	 			cord.push([event.offsetY,event.offsetX])
+ 	 			colorm.push([color])
+                context.lineTo(event.offsetX, event.offsetY);
+              
+                context.stroke();
+                context.strokeStyle=color
+               
+
+                context.beginPath()
+                context.fillStyle=color
+                context.arc(event.offsetX,event.offsetY,r/2,0,Math.PI * 2)
+                context.fill()
+
+                
+
+                context.beginPath()
+                context.moveTo(event.offsetX, event.offsetY);
+            }		
+
+	
+ })            	
+
+ 
+
+
+
+document.addEventListener('keydown',function (event){
+ 	function rip() {
+ 		var time = setInterval(
+ 		function () {
+ 		if (!cord.length) {
+ 			clearInterval(time)
+ 			context.beginPath()
+ 			return;
+ 		}
+ 		
+ 		 context.lineWidth = localStorage.getItem('r')
+ 		cord['0']
+ 		cord['1']
+ 	var crd = cord.shift(),
+ 	event = {
+ 		offsetY: crd['0'],
+ 		offsetX: crd['1']
+
+ 	}
+ 			 	
+ 			 	
+ 			 	var color = document.getElementById('input').value
+ 				var r = document.getElementById('r').value
+				context.lineTo(event.offsetX, event.offsetY);
+              	context.lineWidth = localStorage.getItem('r')
+                context.stroke();
+                context.strokeStyle=localStorage.getItem('color')
+               
+
+                context.beginPath()
+                
+                context.fillStyle=localStorage.getItem('color')
+                context.arc(event.offsetX,event.offsetY,localStorage.getItem('r')/2,0,Math.PI * 2)
+                context.fill()
+
+                
+
+                context.beginPath()
+                context.moveTo(event.offsetX, event.offsetY);
+
+
+ },30)
+ 		
+
+ 	}
+
+ 	var r = document.getElementById('r').value
+ 	 		function save() {
+ 	var color = document.getElementById('input').value
+ 	localStorage.setItem('cord', JSON.stringify(cord));
+ 	localStorage.setItem('color', color);
+ 	localStorage.setItem('r',r);
+ 	console.log(localStorage.getItem('cord'));
+ 	console.log(localStorage.getItem('color'));
+ 	console.log(localStorage.getItem('r'))
+ 	//console.log(localStorage.getItem('color1'));
+
+ }
+
+
+ function clear() {
+ 	
+ 	
+ 	context.fillStyle = "white";
+ 	context.fillRect(0,0,canvas.width,canvas.height)
+ 	
+ 	context.beginPath()
+ 	context.fillStyle = "black";
+ 
+ }
+
+ 	 		if (event.keyCode == 17) {
+
+	clear()
+
+
+}
+
+	 		if (event.keyCode == 18) {
+
+	save()
+
+
+}
+
+	 		if (event.keyCode == 82) {
+
+	
+	cord= JSON.parse(localStorage.getItem('cord'))
+	color=localStorage.getItem('color')
+	r = localStorage.getItem('r')
+	clear()
+	rip()
+}
+})	
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+//$('html').keyup(function(eventObject){ //отлавливаем нажатие клавиш
+	
+
+
+//})
+/*let he = window.innerHeight
+let wi = window.innerWidth
+$("#canvass").attr('width','wi')
+$("#canvass").attr('height','he')
+*/
+
+
+
+var _lsTotal=0,_xLen,_x;for(_x in localStorage){_xLen= ((localStorage[_x].length + _x.length)* 2);_lsTotal+=_xLen; console.log(_x.substr(0,50)+" = "+ (_xLen/1024).toFixed(2)+" KB")};console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
+</script>
+</body>
+</html>
