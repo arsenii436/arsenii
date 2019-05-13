@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<title></title>
+</head>
+<body>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:500" rel="stylesheet">
+
+<div class="instructions">Hover to pop</div>
+
+<canvas></canvas>
+<div id="calculator">
+	<div class="top">
+		<span class="clear">C</span>
+		<div class="screen"></div>
+	</div>
+	
+	<div class="keys">
+		<span>7</span>
+		<span>8</span>
+		<span>9</span>
+		<span class="operator">+</span>
+		<span>4</span>
+		<span>5</span>
+		<span>6</span>
+		<span class="operator">-</span>
+		<span>1</span>
+		<span>2</span>
+		<span>3</span>
+		<span class="operator">÷</span>
+		<span>0</span>
+		<span>.</span>
+		<span class="eval">=</span>
+		<span class="operator">x</span>
+	</div>
+</div>
+
+<!--<a href="http://sergioandra.de" class="button" title="Check out my website :D">Check out my website :D</a>!-->
+<style>
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #00afe9;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.instructions {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #fff;
+  border: 3px solid #fff;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font: normal 25px Arial, sans-serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/*html {
+	height: 100%;
+	background: url(https://33.media.tumblr.com/d4a884274dff05760e01bd3bdcc6defb/tumblr_nb1ulnMaP91st5lhmo1_1280.jpg);
+	background-size: cover;
+}*/
+
+
+#calculator {
+	width: 325px;
+	height: auto;
+	overflow:hidden;
+	margin: 100px auto;
+	padding: 20px 20px 9px;
+	position:relative;
+	background: rgba(0,0,0,0.3);
+	border-radius: 3px;
+	box-shadow:  0px 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.top span.clear {
+	position:absolute;
+  z-index:6;
+ 
+}
+
+
+.top .screen {
+	height: 80px;
+	width: 100%;
+	position:absolute;
+  top:0; left:0;
+	padding: 20px 10px;
+	background: rgba(0, 0, 0, 0.2);
+	font-size: 27px;
+  font-weight:normal;
+	line-height: 40px;
+	color: white;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+	text-align: right;
+	letter-spacing: 1px;
+}
+
+.keys, .top {overflow: hidden;}
+
+
+.keys span, .top span.clear {
+	float: left;
+	position: relative;
+	top: 0;
+	
+	cursor: pointer;
+	
+	width: 66px;
+	height: 56px;
+	
+	background: rgba(0,0,0,0.5);
+	border-radius: 3px;
+	box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+	
+	margin: 0 7px 11px 0;
+	
+	color: #ccc;
+	line-height: 56px;
+	text-align: center;
+	
+	user-select: none;
+	
+
+	transition: all 0.2s ease;
+}
+
+
+.keys span.operator {
+	background: rgba(250,100,0,0.3);
+	margin-right: 0;
+}
+
+.keys span.eval {
+
+	color: #888e5f;
+}
+
+.top span.clear {
+	background: transparent;
+	box-shadow: none;
+	color: #aaa;
+  width:56px;
+  left:5px
+}
+
+
+.keys span:hover {
+	transition: 0.7s;
+  background: rgba(255,255,255,0.8);
+	color: #333;
+}
+
+.keys span.eval:hover {
+	background: #abb850;
+	color: #ffffff;
+}
+
+.top span.clear:hover {
+  border-radius:190px;
+	background: rgba(0,0,0,0.1);
+	color: white;
+}
+
+.keys span:active {
+	box-shadow: 0px 0px rgba(0, 0, 0, 0.2);
+	top: 4px;
+}
+
+.keys span.eval:active {
+	box-shadow: 0px 0px #717a33;
+	top: 4px;
+}
+
+.top span.clear:active {
+	top: 4px;
+	box-shadow: 0px 0px #d3545d;
+}
+
+</style>
+<script>
+var keys = document.querySelectorAll('#calculator span');
+var operators = ['+', '-', 'x', '÷'];
+var decimalAdded = false;
+
+
+for(var i = 0; i < keys.length; i++) {
+	keys[i].onclick = function fil(e) {
+		
+		var input = document.querySelector('.screen');
+		var inputVal = input.innerHTML;
+		var btnVal = this.innerHTML;
+		var total;
+		if(btnVal == 'C') {
+			input.innerHTML = '';
+			decimalAdded = false;
+		}
+		
+		else if(btnVal == '=') {
+			var equation = inputVal;
+			var lastChar = equation[equation.length - 1];
+			
+			equation = equation.replace(/x/g, '*').replace(/÷/g, '/');
+			
+			if(operators.indexOf(lastChar) > -1 || lastChar == '.')
+				equation = equation.replace(/.$/, '');
+			
+			if(equation)
+				{
+             total = eval(equation);
+              if(total.toString().indexOf('.') != -1)
+                total= total.toFixed(2);
+          
+          input.innerHTML = total;
+        }
+				
+			decimalAdded = false;
+		}
+		
+		
+		else if(operators.indexOf(btnVal) > -1) {
+			
+			var lastChar = inputVal[inputVal.length - 1];
+			
+			if(inputVal != '' && operators.indexOf(lastChar) == -1) 
+				input.innerHTML += btnVal;
+			
+			else if(inputVal == '' && btnVal == '-') 
+				input.innerHTML += btnVal;
+			
+			if(operators.indexOf(lastChar) > -1 && inputVal.length > 1) {
+				input.innerHTML = inputVal.replace(/.$/, btnVal);
+			}
+			
+			decimalAdded =false;
+		}
+		
+		else if(btnVal == '.') {
+			if(!decimalAdded) {
+				input.innerHTML += btnVal;
+				decimalAdded = true;
+			}
+		}
+		
+		else {
+			input.innerHTML += btnVal;
+		}
+		
+		e.preventDefault();
+	} 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+var canvas = document.querySelector('canvas');
+      canvas.width = document.body.clientWidth;
+      canvas.height = document.body.clientHeight;
+  var ctx = canvas.getContext('2d');
+  var count = canvas.height;
+  var bubbles = [];
+  var bubbleCount = 20;
+  var bubbleSpeed = 1;
+  var popLines = 6;
+  var popDistance = 40;
+  var mouseOffset = {
+    x: 0,
+    y: 0
+  }
+
+
+
+  // --------------
+  // Animation Loop
+  // --------------
+
+  function animate() {
+
+
+
+    // ------------
+    // Clear Canvas
+    // ------------
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+
+    // ------------
+    // Draw Bubbles
+    // ------------
+
+    ctx.beginPath();
+    for (var i = 0; i < bubbles.length; i++) {
+      // first num = distance between waves
+      // second num = wave height
+      // third num = move the center of the wave away from the edge
+      bubbles[i].position.x = Math.sin(bubbles[i].count/bubbles[i].distanceBetweenWaves) * 50 + bubbles[i].xOff;
+      bubbles[i].position.y = bubbles[i].count;
+      bubbles[i].render();
+
+      if(bubbles[i].count < 0 - bubbles[i].radius) {
+        bubbles[i].count = canvas.height + bubbles[i].yOff;
+      } else {
+        bubbles[i].count -= bubbleSpeed;
+      }
+    }
+
+    // ---------------
+    // On Bubble Hover
+    // ---------------
+
+    for (var i = 0; i < bubbles.length; i++) {
+      if(mouseOffset.x > bubbles[i].position.x - bubbles[i].radius && mouseOffset.x < bubbles[i].position.x + bubbles[i].radius) {
+        if(mouseOffset.y > bubbles[i].position.y - bubbles[i].radius && mouseOffset.y < bubbles[i].position.y + bubbles[i].radius) {
+          for (var a = 0; a < bubbles[i].lines.length; a++) {
+            popDistance = bubbles[i].radius * 0.5;
+            bubbles[i].lines[a].popping = true;
+            bubbles[i].popping = true;
+          }
+        }
+      }
+    }
+
+    window.requestAnimationFrame(animate);
+  }
+
+  window.requestAnimationFrame(animate);
+
+
+
+  // ------------------
+  // Bubble Constructor
+  // ------------------
+
+  var createBubble = function() {
+    this.position = {x: 0, y: 0};
+    this.radius = 8 + Math.random() * 6;
+    this.xOff = Math.random() * canvas.width - this.radius;
+    this.yOff = Math.random() * canvas.height;
+    this.distanceBetweenWaves = 50 + Math.random() * 40;
+    this.count = canvas.height + this.yOff;
+    this.color = '#8bc9ee';
+    this.lines = [];
+    this.popping = false;
+    this.maxRotation = 85;
+    this.rotation = Math.floor(Math.random() * (this.maxRotation - (this.maxRotation * -1))) + (this.maxRotation * -1);
+    this.rotationDirection = 'forward';
+
+    // Populate Lines
+    for (var i = 0; i < popLines; i++) {
+      var tempLine = new createLine();
+          tempLine.bubble = this;
+          tempLine.index = i;
+
+      this.lines.push(tempLine);
+    }
+
+    this.resetPosition = function() {
+      this.position = {x: 0, y: 0};
+      this.radius = 8 + Math.random() * 6;
+      this.xOff = Math.random() * canvas.width - this.radius;
+      this.yOff = Math.random() * canvas.height;
+      this.distanceBetweenWaves = 50 + Math.random() * 40;
+      this.count = canvas.height + this.yOff;
+      this.popping = false;
+    }
+
+    // Render the circles
+    this.render = function() {
+      if(this.rotationDirection === 'forward') {
+        if(this.rotation < this.maxRotation) {
+          this.rotation++;
+        } else {
+          this.rotationDirection = 'backward';
+        }
+      } else {
+        if(this.rotation > this.maxRotation * -1) {
+          this.rotation--;
+        } else {
+          this.rotationDirection = 'forward';
+        }
+      }
+
+      ctx.save();
+      ctx.translate(this.position.x, this.position.y);
+      ctx.rotate(this.rotation*Math.PI/180);
+
+      if(!this.popping) {
+        ctx.beginPath();
+        ctx.strokeStyle = '#8bc9ee';
+        ctx.lineWidth = 1;
+        ctx.arc(0, 0, this.radius - 3, 0, Math.PI*1.5, true);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(0, 0, this.radius, 0, Math.PI*2, false);
+        ctx.stroke();
+      }
+      
+      ctx.restore();
+
+      // Draw the lines
+      for (var a = 0; a < this.lines.length; a++) {
+        if(this.lines[a].popping) {
+          if(this.lines[a].lineLength < popDistance && !this.lines[a].inversePop) {
+            this.lines[a].popDistance += 0.06;
+          } else {
+            if(this.lines[a].popDistance >= 0) {
+              this.lines[a].inversePop = true;
+              this.lines[a].popDistanceReturn += 1;
+              this.lines[a].popDistance -= 0.03;
+            } else {
+              this.lines[a].resetValues();
+              this.resetPosition();
+            }
+          }
+
+          this.lines[a].updateValues();
+          this.lines[a].render();
+        }
+      }
+    }
+  }
+
+
+
+  // ----------------
+  // Populate Bubbles
+  // ----------------
+
+  for (var i = 0; i < bubbleCount; i++) {
+    var tempBubble = new createBubble();
+
+    bubbles.push(tempBubble);
+  }
+
+
+
+  // ----------------
+  // Line Constructor
+  // ----------------
+
+  function createLine() {
+    this.lineLength = 0;
+    this.popDistance = 0;
+    this.popDistanceReturn = 0;
+    this.inversePop = false; // When the lines reach full length they need to shrink into the end position
+    this.popping = false;
+
+    this.resetValues = function() {
+      this.lineLength = 0;
+      this.popDistance = 0;
+      this.popDistanceReturn = 0;
+      this.inversePop = false;
+      this.popping = false;
+
+      this.updateValues();
+    }
+
+    this.updateValues = function() {
+      this.x = this.bubble.position.x + (this.bubble.radius + this.popDistanceReturn) * Math.cos(2 * Math.PI * this.index / this.bubble.lines.length);
+      this.y = this.bubble.position.y + (this.bubble.radius + this.popDistanceReturn) * Math.sin(2 * Math.PI * this.index / this.bubble.lines.length);
+      this.lineLength = this.bubble.radius * this.popDistance;
+      this.endX = this.lineLength;
+      this.endY = this.lineLength;
+    }
+
+    this.render = function() {
+      this.updateValues();
+
+      ctx.beginPath();
+      ctx.strokeStyle = '#8bc9ee';
+      ctx.lineWidth = 2;
+      ctx.moveTo(this.x, this.y);
+      if(this.x < this.bubble.position.x) {
+        this.endX = this.lineLength * -1;
+      }
+      if(this.y < this.bubble.position.y) {
+        this.endY = this.lineLength * -1;
+      }
+      if(this.y === this.bubble.position.y) {
+        this.endY = 0;
+      }
+      if(this.x === this.bubble.position.x) {
+        this.endX = 0;
+      }
+      ctx.lineTo(this.x + this.endX, this.y + this.endY);
+      ctx.stroke();
+    };
+  }
+
+
+
+  // ---------------
+  // Event Listeners
+  // ---------------
+
+  canvas.addEventListener('mousemove', mouseMove);
+
+  function mouseMove(e) {
+    mouseOffset.x = e.offsetX;
+    mouseOffset.y = e.offsetY;
+  }
+
+  window.addEventListener('resize', function() {
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+  });
+
+</script>
+</body>
+</html>
