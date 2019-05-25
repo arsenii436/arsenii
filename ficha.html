@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script  src = "anime.min.js"> </script>
+</head>
+<body>
+<div class="ball"></div>
+<div id="map"></div>
+<style type="text/css">
+#map{
+	width: 1000px;
+	height: 1000px; 
+</style>
+<script>
+function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 28
+        });
+      }
+/*console.log(anime.easings);
+var bouncingBall = document.getElementById('bol')
+    bouncingBall = anime({
+    targets: '.ball',
+    translateY: '50vh',
+    duration: 300,
+    loop: true,
+    direction: 'alternate',
+    easing: 'easeInCubic',
+    scaleX: {
+        value: 1.05,
+        duration: 150,
+        delay: 268
+    }
+});*/
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYkAAd41-khX-y-4XF2k9BMS61nzCblic&callback=initMap"
+    async defer></script>
+</body>
+</html>

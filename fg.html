@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r61/three.min.js"></script>
+    </head>
+    <body>
+        <script>
+          //initialisation variable truc mega relou
+            var camera, scene, renderer;
+            var geometry, material;
+            var meshes = [];
+            init();
+            animate();
+          //la scene et la forme
+          
+            function init() {
+             
+
+              //set de la camera 
+                camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 10000 );
+                camera.position.z = 200;
+                scene = new THREE.Scene();
+              scene.background = new THREE.Color( 0x000000);
+              //creation de la forme
+							geometry = new THREE.CubeGeometry( 25, 25, 25 );
+              
+								//boucle multiplication de la forme avec position random et couleur random
+								for ( var i = 0; i < 400; i ++ ) {
+                  //texture de l'objet
+    							material = new THREE.MeshNormalMaterial( { color: 				Math.random()*0xf442c5 } );
+                  //declaration variable qui prend la forme et la texture
+                  mesh = new THREE.Mesh( geometry, material);
+                  //la position de l'objet
+                  mesh.position.x = Math.random() * 2000 - 500;
+                  mesh.position.y = Math.random() * 2000 - 500;
+                  mesh.position.z = Math.random() * 2000 - 500;
+                  // la rotation de l'objet
+                  mesh.rotation.x = Math.random() * 3 * Math.PI;
+                  mesh.rotation.y = Math.random() * 3 * Math.PI;
+                  mesh.rotation.z = Math.random() * 3 * Math.PI;
+                  scene.add( mesh );
+                  
+              }
+              
+              //rendu du canvas html
+                renderer = new THREE.CanvasRenderer();
+              //taille du canvas html
+              
+                renderer.setSize( window.innerWidth, window.innerHeight );
+              //position de l'element canvas dans html
+                document.body.appendChild( renderer.domElement );
+            }
+          // animation mdr
+            function animate() {
+              
+								//prépare la 1ere image 
+              
+                requestAnimationFrame( animate );
+                //position de la cam selon un objet
+              camera.position.z = Math.sin( Date.now() * 0.001 ) * 1000;
+				camera.position.y = Math.sin( Date.now() * 0.002 ) * 700;
+				camera.lookAt(mesh.position);/*вращает объект, чтобы встретить точку в мировом пространстве. 
+
+																		Этот метод не поддерживает объекты с неравномерно масштабируемыми родителями.*/
+              
+              //rendu de la scene
+                renderer.render( scene, camera );
+              
+            }
+        </script>
+</body>
+</html>
