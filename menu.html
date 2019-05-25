@@ -373,17 +373,17 @@ var canvas = document.querySelector('canvas');
 
   var createBubble = function() {
     this.position = {x: 0, y: 0};
-    this.radius = 8 + Math.random() * 6;
+    this.radius = 10 + Math.random() * 20;
     this.xOff = Math.random() * canvas.width - this.radius;
     this.yOff = Math.random() * canvas.height;
-    this.distanceBetweenWaves = 50 + Math.random() * 40;
+    this.distanceBetweenWaves = 90 + Math.random() * 400;
     this.count = canvas.height + this.yOff;
-    this.color = '#8bc9ee';
+    this.color = '#fff';
     this.lines = [];
     this.popping = false;
-    this.maxRotation = 85;
+    this.maxRotation = 850;
     this.rotation = Math.floor(Math.random() * (this.maxRotation - (this.maxRotation * -1))) + (this.maxRotation * -1);
-    this.rotationDirection = 'forward';
+    this.rotationDirection = 'backward';
 
     // Populate Lines
     for (var i = 0; i < popLines; i++) {
@@ -426,13 +426,13 @@ var canvas = document.querySelector('canvas');
 
       if(!this.popping) {
         ctx.beginPath();
-        ctx.strokeStyle = '#8bc9ee';
+        ctx.strokeStyle = 'black';
         ctx.lineWidth = 1;
-        ctx.arc(0, 0, this.radius - 3, 0, Math.PI*1.5, true);
+        ctx.arc(0, 0, this.radius - 3, 0, Math.PI*1, true);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.arc(0, 0, this.radius, 0, Math.PI*2, false);
+        ctx.arc(0, 0, this.radius, 0, Math.PI*1000000, false);
         ctx.stroke();
       }
       
@@ -481,9 +481,9 @@ var canvas = document.querySelector('canvas');
 
   function createLine() {
     this.lineLength = 0;
-    this.popDistance = 0;
+    this.popDistance = 0.9;
     this.popDistanceReturn = 0;
-    this.inversePop = false; // When the lines reach full length they need to shrink into the end position
+    this.inversePop = false; // 
     this.popping = false;
 
     this.resetValues = function() {
@@ -508,14 +508,14 @@ var canvas = document.querySelector('canvas');
       this.updateValues();
 
       ctx.beginPath();
-      ctx.strokeStyle = '#8bc9ee';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#ccc';
+      ctx.lineWidth = 3;
       ctx.moveTo(this.x, this.y);
       if(this.x < this.bubble.position.x) {
-        this.endX = this.lineLength * -1;
+        this.endX = this.lineLength * -2;
       }
       if(this.y < this.bubble.position.y) {
-        this.endY = this.lineLength * -1;
+        this.endY = this.lineLength * -2;
       }
       if(this.y === this.bubble.position.y) {
         this.endY = 0;
@@ -541,9 +541,17 @@ var canvas = document.querySelector('canvas');
     mouseOffset.y = e.offsetY;
   }
 
+  canvas.addEventListener('toucmove', mouseMoveMobile);
+
+  function mouseMoveMobile(e) {
+    mouseOffset.x = e.offsetX;
+    mouseOffset.y = e.offsetY;
+  }
+
   window.addEventListener('resize', function() {
     canvas.width = document.body.clientWidth;
     canvas.height = document.body.clientHeight;
+  //когда размер изменяется
   });
 
 </script>
