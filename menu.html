@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<title></title>
@@ -371,9 +372,16 @@ var canvas = document.querySelector('canvas');
   // Bubble Constructor
   // ------------------
 
+  if (window.innerWidth<=1290||window.innerHeight<=1000) {
+    this.radius = 100 + Math.random() * 250;
+    console.log("e9g")
+  }
+
+
+
   var createBubble = function() {
     this.position = {x: 0, y: 0};
-    this.radius = 10 + Math.random() * 20;
+    this.radius = 10 + Math.random() * 25;//razmer
     this.xOff = Math.random() * canvas.width - this.radius;
     this.yOff = Math.random() * canvas.height;
     this.distanceBetweenWaves = 90 + Math.random() * 400;
@@ -552,6 +560,7 @@ var canvas = document.querySelector('canvas');
     canvas.width = document.body.clientWidth;
     canvas.height = document.body.clientHeight;
   //когда размер изменяется
+  alert(document.body.clientWidth)
   });
 
 </script>
