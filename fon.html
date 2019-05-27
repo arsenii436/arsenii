@@ -1,0 +1,463 @@
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js" defer ></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+</head>
+<body>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:500" rel="stylesheet">
+<button id="gol"><a href="menu.html">изменить фон</a></button>
+<div class="instructions">Hover to pop</div>
+<div id="particles-js"></div>
+
+<div id="particles-js"></div>
+
+
+<div class="count-particles">
+    <span class="js-count-particles">--</span> particles
+</div>
+
+<div id="calculator">
+    <div class="top">
+        <span class="clear">C</span>
+        <div class="screen"></div>
+    </div>
+
+    <div class="keys">
+        <span>7</span>
+        <span>8</span>
+        <span>9</span>
+        <span class="operator">+</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span class="operator">-</span>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span class="operator">÷</span>
+        <span>0</span>
+        <span>.</span>
+        <span class="eval">=</span>
+        <span class="operator">x</span>
+    </div>
+</div>
+
+
+<style>
+
+
+    canvas {
+        display: block;
+        vertical-align: bottom;
+    }
+
+    /* ---- particles.js container ---- */
+
+    #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #00afe9;
+        background-image: url("");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+
+    /* ---- stats.js ---- */
+
+    .count-particles{
+        background: #000022;
+        position: absolute;
+        top: 48px;
+        left: 0;
+        width: 80px;
+        color: #13E8E9;
+        font-size: .8em;
+        text-align: left;
+        text-indent: 4px;
+        line-height: 14px;
+        padding-bottom: 2px;
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: bold;
+    }
+
+    .js-count-particles{
+        font-size: 10px;
+    }
+
+    #stats,
+    .count-particles{
+        -webkit-user-select: none;
+    }
+
+    #stats{
+        border-radius: 3px 3px 0 0;
+        overflow: hidden;
+    }
+
+    .count-particles{
+        border-radius: 0 0 3px 3px;
+    }
+    html,
+    #gol{
+        position: inherit;
+        right: 50%;
+    }
+    body {
+        height: 90%;
+    }
+    body {
+        background: #00afe9;
+    }
+    canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 10;
+    }
+    .instructions {
+        z-index: 1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: 'Work Sans', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        color: #fff;
+        border: 3px solid #fff;
+        border-radius: 6px;
+        padding: 8px;
+    }
+    /** {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font: normal 25px Arial, sans-serif;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }*/
+    /*html {
+        height: 100%;
+        background: url(https://33.media.tumblr.com/d4a884274dff05760e01bd3bdcc6defb/tumblr_nb1ulnMaP91st5lhmo1_1280.jpg);
+        background-size: cover;
+    }*/
+    #calculator {
+        top: 900px;
+        width: 325px;
+        height: auto;
+        overflow:hidden;
+        margin: 100px auto;
+        padding: 20px 20px 9px;
+        position:relative;
+        background: rgba(0,0,0,0.3);
+        border-radius: 3px;
+        box-shadow:  0px 10px 15px rgba(0, 0, 0, 0.2);
+    }
+    .top span.clear {
+        position:absolute;
+        z-index:6;
+
+    }
+    .top .screen {
+        height: 80px;
+        width: 100%;
+        position:absolute;
+        top:0; left:0;
+        padding: 20px 10px;
+        background: rgba(0, 0, 0, 0.2);
+        font-size: 27px;
+        font-weight:normal;
+        line-height: 40px;
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        text-align: right;
+        letter-spacing: 1px;
+    }
+    .keys, .top {overflow: hidden;}
+    .keys span, .top span.clear {
+        float: left;
+        position: relative;
+        top: 0;
+
+        cursor: pointer;
+
+        width: 66px;
+        height: 56px;
+
+        background: rgba(0,0,0,0.5);
+        border-radius: 3px;
+        box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+
+        margin: 0 7px 11px 0;
+
+        color: #ccc;
+        line-height: 56px;
+        text-align: center;
+
+        user-select: none;
+
+        transition: all 0.2s ease;
+    }
+    .keys span.operator {
+        background: rgba(250,100,0,0.3);
+        margin-right: 0;
+    }
+    .keys span.eval {
+        color: #888e5f;
+    }
+    .top span.clear {
+        background: transparent;
+        box-shadow: none;
+        color: #aaa;
+        width:56px;
+        left:5px
+    }
+    .keys span:hover {
+        transition: 0.7s;
+        background: rgba(255,255,255,0.8);
+        color: #333;
+    }
+    .keys span.eval:hover {
+        background: #abb850;
+        color: #ffffff;
+    }
+    .top span.clear:hover {
+        border-radius:190px;
+        background: rgba(0,0,0,0.1);
+        color: white;
+    }
+    .keys span:active {
+        box-shadow: 0px 0px rgba(0, 0, 0, 0.2);
+        top: 4px;
+    }
+    .keys span.eval:active {
+        box-shadow: 0px 0px #717a33;
+        top: 4px;
+    }
+    .top span.clear:active {
+        top: 4px;
+        box-shadow: 0px 0px #d3545d;
+    }
+</style>
+<script>
+    var keys = document.querySelectorAll('#calculator span');
+    var operators = ['+', '-', 'x', '÷'];
+    var decimalAdded = false;
+    for(var i = 0; i < keys.length; i++) {
+        keys[i].onclick = function fil(e) {
+
+            var input = document.querySelector('.screen');
+            var inputVal = input.innerHTML;
+            var btnVal = this.innerHTML;
+            var total;
+            if(btnVal == 'C') {
+                input.innerHTML = '';
+                decimalAdded = false;
+            }
+
+            else if(btnVal == '=') {
+                var equation = inputVal;
+                var lastChar = equation[equation.length - 1];
+
+                equation = equation.replace(/x/g, '*').replace(/÷/g, '/');
+
+                if(operators.indexOf(lastChar) > -1 || lastChar == '.')
+                    equation = equation.replace(/.$/, '');
+
+                if(equation)
+                {
+                    total = eval(equation);
+                    if(total.toString().indexOf('.') != -1)
+                        total= total.toFixed(2);
+
+                    input.innerHTML = total;
+                }
+
+                decimalAdded = false;
+            }
+
+
+            else if(operators.indexOf(btnVal) > -1) {
+
+                var lastChar = inputVal[inputVal.length - 1];
+
+                if(inputVal != '' && operators.indexOf(lastChar) == -1)
+                    input.innerHTML += btnVal;
+
+                else if(inputVal == '' && btnVal == '-')
+                    input.innerHTML += btnVal;
+
+                if(operators.indexOf(lastChar) > -1 && inputVal.length > 1) {
+                    input.innerHTML = inputVal.replace(/.$/, btnVal);
+                }
+
+                decimalAdded =false;
+            }
+
+            else if(btnVal == '.') {
+                if(!decimalAdded) {
+                    input.innerHTML += btnVal;
+                    decimalAdded = true;
+                }
+            }
+
+            else {
+                input.innerHTML += btnVal;
+            }
+
+            e.preventDefault();
+        }
+    }
+
+</script>
+<script>
+    particlesJS('particles.json');
+</script>
+<script>
+    particlesJS("particles-js", {
+        "particles": {
+            "number": {
+                "value": 80,
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": "#ffffff"
+            },
+            "shape": {
+                "type": "circle",
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                },
+                "polygon": {
+                    "nb_sides": 5
+                },
+                "image": {
+                    "src": "img/github.svg",
+                    "width": 100,
+                    "height": 100
+                }
+            },
+            "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                    "enable": false,
+                    "speed": 1,
+                    "opacity_min": 0.1,
+                    "sync": false
+                }
+            },
+            "size": {
+                "value": 3,
+                "random": true,
+                "anim": {
+                    "enable": false,
+                    "speed": 40,
+                    "size_min": 0.1,
+                    "sync": false
+                }
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.4,
+                "width": 1
+            },
+            "move": {
+                "enable": true,
+                "speed": 6,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                    "enable": false,
+                    "rotateX": 600,
+                    "rotateY": 1200
+                }
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": true,
+                    "mode": "grab"
+                },
+                "onclick": {
+                    "enable": true,
+                    "mode": "push"
+                },
+                "resize": true
+            },
+            "modes": {
+                "grab": {
+                    "distance": 140,
+                    "line_linked": {
+                        "opacity": 1
+                    }
+                },
+                "bubble": {
+                    "distance": 400,
+                    "size": 40,
+                    "duration": 2,
+                    "opacity": 8,
+                    "speed": 3
+                },
+                "repulse": {
+                    "distance": 200,
+                    "duration": 0.4
+                },
+                "push": {
+                    "particles_nb": 4
+                },
+                "remove": {
+                    "particles_nb": 2
+                }
+            }
+        },
+        "retina_detect": true
+    });
+
+
+    /* ---- stats.js config ---- */
+
+    var count_particles, stats, update;
+    stats = new Stats;
+    stats.setMode(0);
+    stats.domElement.style.fontSize = '200px';
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '1100px';
+    stats.domElement.style.top = '20px';
+    document.body.appendChild(stats.domElement);
+    count_particles = document.querySelector('.js-count-particles');
+    update = function() {
+        stats.begin();
+        stats.end();
+        if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+            count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+        }
+        requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+</script>
+
+</body>
+</html>
