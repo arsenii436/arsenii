@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>html+css</title>
+</head>
+<body>
+<div class="box">hower me</div>
+<span><button id="bg">click me and change bg</button></span>
+<legend>my profehionals skils
+	
+	<p id="out">  0</p>
+<div id="skil"><p>js</p></div>
+<p id="out1">  0</p>
+<div id="skil1"><p>css</p></div>
+<p id="out2">  0</p>
+<div id="skil2"><p>html    </p></div>
+<img src="body.png" alt="css template" class="img" />
+</legend>
+
+
+<style type="text/css">
+	#out{
+		position: absolute;
+		top:47px;
+		z-index: 9999;
+	}
+	#out1{
+		position: absolute;
+		top: 80px;
+		z-index: 99999;
+	}
+	#out2{
+		position: absolute;
+		top: 115px;
+		z-index: 9999999;
+	}
+	#skil{
+		position: relative;
+		left: 30px;
+		width: 0px;
+		background-color: green; 
+	}
+	#skil1{
+		position: relative;
+		left: 30px;
+		width: 0px;
+		background-color: blue; 
+	}
+	#skil2{
+		position: relative;
+		left: 30px;
+		width: 0px;
+		background-color: orange; 
+	}
+	
+	.img{
+		width: 200px;
+		border-radius: 100px; /* Радиус скругления */
+    border: 3px solid green; /* Параметры рамки */
+    box-shadow: 0 0 7px #666; /* Параметры тени */
+}
+
+</style>
+<script type="text/javascript">
+
+	let i = 40
+	/*while(i<200){
+		i++
+		console.log(i)
+	}*/
+	let time = setInterval(function () {
+		let sum = i/2
+		let sumplus = Number(sum + 20)
+		console.log(sumplus)
+		let arr = {
+			"first": `left: ${sumplus}px; color: black;`,
+			"second":`width: ${i}px;`
+			//"special": `left: ${sumplus}px; color: white;`
+		}
+		let multy = i+'%'
+		i++
+		out.style.cssText = arr.first
+		out.innerHTML = multy
+		
+		out1.style.cssText = arr.first
+		out1.innerHTML = multy
+		
+		out2.style.cssText = arr.first
+		out2.innerHTML = multy
+		skil.style.cssText = arr.second
+		skil1.style.cssText = arr.second
+		skil2.style.cssText = arr.second
+		if (i==301) {
+			clearInterval(time)
+		}
+	}, 10)
+</script>
+<style type="text/css">
+.box {
+    top: 700px;
+    position: absolute;
+    left: 400px;
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: #0000FF;
+    transition: transform 2s;
+}
+
+.box:hover {
+    transform: rotate(180deg);
+}
+#bg{
+	position: relative;
+	left: 500px;
+	top: 700px;
+}
+#bg:active{
+	background-color: pink;
+}
+#test{
+	position: absolute;
+	transition: left 6s, top 7s;
+}
+#test:hover{
+	left: 50%;
+	top: 50%;
+}
+</style>
+</body>
+</html>
