@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<style type="text/css">
+	#sidebarright{
+		margin: 1px;
+		z-index: 999;
+		/*float: left;*/
+		position: absolute;
+		border-radius: 10%;
+		width: 300px;
+		height: 349px;
+		text-align: center;
+		background-color: yellow;
+		bottom: 0;
+		top: 30%;
+		display: inline-block;
+		border: 1px solid black;
+	}
+	#sidebarleft{
+		margin: 1px;
+		position: absolute;
+		border-radius: 10%;
+		width: 300px;
+		height: 349px;
+		background-color: yellow;
+		bottom: 0;
+		text-align: center;
+		top: 30%;
+		left: 85%;
+		display: inline-block;
+		border: 1px solid black;
+	}
+	#header{
+		margin: 1px;
+		position: relative;
+		border-radius: 10%;
+		width: 100%;
+		height: 250px;
+		background-color: yellow;
+		left: 0;
+		text-align: center;
+		right: 0;
+		bottom: 100%;
+		top: 0;
+		display: inline-block;
+		border: 1px solid black;		
+	}
+	#footer{
+		margin: 1px;
+		position: absolute;
+		border-radius: 5%;
+		width: 100%;
+		height: 80%;
+		text-align: center;
+		background-color: yellow;
+		left: 0;
+		text-align: center;
+		right: 0;
+		bottom: 0;
+		top: 70%;
+		display: inline-block;
+		border: 1px solid black;
+	}
+	#content{
+		margin: 1px;
+		text-align: center;
+		position: absolute;
+		border-radius: 10%;
+		width: 1276px;
+		height: 350px;
+		background-color: yellow;
+		left: 17%;
+		right: 0;
+		bottom: 0;
+		top: 30%;
+		display: inline-block;
+		border: 1px solid black;
+	}
+	.fonty{
+		font-kerning: normal;
+		font-size: 20px;
+		font-family: monospace;
+		letter-spacing: 15px;
+	}
+</style>
+<div id="sidebarright" class="fonty">sidebarrigh</div>
+<div id="sidebarleft" class="fonty">sidebarleft</div>
+<header id="header" class="fonty">header</header>
+<footer id="footer" class="fonty">footer</footer>
+<content id="content" class="fonty">content</content>
+<script type="text/javascript">
+	let elem = document.querySelectorAll(".fonty")
+	//console.log()
+	for(let i=0;i<elem.length;i++){
+		console.log(elem[i].width)
+	}
+</script>
+</body>
+</html>
