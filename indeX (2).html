@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<link rel="stylesheet" href="aicon/style.css">
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<body>
+<header id="header">
+<div class="container">
+ <div class="row">
+
+<div class="col-sm order-1">
+<nav class="nav">
+  <input class="nav__check" type="checkbox" id="showmenu"/>
+  <label class="nav__showmenu" for="showmenu">&#9776;</label>
+  <ul class="menu">
+    <li><a class="menu__item" href="#">Catalog</a></li>
+    <li>
+      <a class="menu__item" href="#">About</a>
+      <input class="menu__check" type="checkbox" id="menu2">
+      <label class="menu__showsub" for="menu2">&#9660;</label>
+      <ul class="menu__submenu">
+        <li><a class="menu__item" href="#">Company</a></li>
+      	    <li><a class="menu__item" href="info.html">Info</a></li>
+      </ul>
+    </li>
+    <li><a class="menu__item" href="#">Contacts</a></li>
+  	<li><a class="menu__item" href="settings.html">Settings</a></li>
+  	<li><a class="menu__item" href="function.html">Function</a></li>
+  </ul>
+</nav>
+</div>
+
+<div class="col-sm order-2">
+<div class="styled">
+  <select>
+    <option>camedy</option>
+    <option selected>horor</option>
+    <option>adventure</option>
+  </select>
+</div>
+</div>
+<div class="col-sm order-3">
+<input type="search" id="inputsearch"  q="googlesearch" placeholder="search">
+</div>
+
+<div class="col- order-4">
+	
+<label id="name__sait__logo">kinosait</label>
+</div>
+</div>
+</div>
+</header>
+
+
+
+
+
+
+<section id="laik__user__kino">
+<!--<div class="container">
+<div class="row">
+  <div class="col-2 order-1">
+    <p class="tab" id="kinop">kino</p>
+    <div id="kino">
+       <div class="row">
+        <div class="col-1 order-1" id="menu__item__laik__kino"> krhrhrthth </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-2 order-2">
+    <p class="tab" id="filmp">film</p>
+    <div id="film">
+        <div class="row">
+        <div class="col-1 order-1" id="menu__item__laik__film"> fterhrdth </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>-->
+
+
+<!--<p class="tab" id="kino">kino</p>
+<div id="kino__content">
+  <div class="container">
+<div class="row">
+  <div class="col-1 order-1" id="kino__item">textkino</div>
+</div>
+</div>-->
+
+</div>
+<p class="tab" id="film">film</p>
+
+<div class="container">
+<div class="row">
+  <div class="col-sm" id="film__content">
+    <div class="row">
+
+  <div class="col-1 order-1" id="film__item">textfilm</div>
+  <div class="col-1 order-2" id="film__item">textfilm</div>
+  <div class="col-1 order-3" id="film__item">textfilm</div>
+</div>
+  </div>
+</div>
+</div>
+
+<p class="tab" id="kino">kino</p>
+
+
+<div class="row">
+  <div class="col-sm" id="kino__content">
+    <div class="row">
+
+  <div class="col-1 order-1" id="kino__item">textkino</div>
+  <div class="col-1 order-2" id="kino__item">textkino</div>
+  <div class="col-1 order-3" id="kino__item">textkino</div>
+</div>
+  </div>
+</div>
+
+
+</section>
+</body>
+<script>
+function kinotab(){
+  kino__content.style.display = "block"
+film__content.style.display = "none"
+//kino__item.style.display = "none"
+//kino.classList.remove('tab')
+kino.classList.add('tabactive')
+film.classList.remove('tabactive')
+film.classList.add('tab')
+}
+function filmtab(){
+film__content.style.display = "block"
+kino__content.style.display = "none"
+//film__item.style.display = "none"
+//film.classList.remove('tab')
+film.classList.add('tabactive')
+kino.classList.remove('tabactive')
+kino.classList.add('tab')
+}
+film.addEventListener('click',function(e){
+filmtab()
+})
+kino.addEventListener('click',function(e){
+kinotab()
+})
+</script>
+<style>
+/*#film{
+  display: none;
+}*/
+.tabactive{
+  width: 50px;
+  height: 30px;
+  border: 2px solid white;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+/*#kino__item{
+  position: absolute;
+  top: 60%;
+  color: white;
+  font-size: 20px;
+}*/
+#film__content{
+  position: absolute;
+  top: 10%;
+  color: white;
+  font-size: 20px;
+  display: none;
+  overflow: hidden;
+  /*width: 200px;*/
+}
+#kino__content{
+  position: absolute;
+  top: 10%;
+  color: white;
+  font-size: 20px;
+  display: none;
+}
+.tab{
+  position: absolute;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+}
+#film{
+position: absolute;
+  left: 20%;
+
+}
+#kino{
+  position: absolute;
+
+}
+#laik__user__kino{
+  position: absolute;
+  top: 8%;
+  background-color: black;
+  width: 100%;
+  height: 400px;
+  border:1px solid black;
+}
+@font-face {
+    font-family: RDC;
+    src: url("RedDeadCyrillic2.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: RDC;
+    font-weight: normal;
+    src: url("RedDeadCyrillic2.ttf") format("opentype");
+}
+html{
+  margin: 0;
+  padding: 0;
+  top: 0;
+  bottom: 0;
+}
+#header{
+  background-color: black; 
+  border-bottom: 1px solid black;
+
+}
+#name__sait__logo{
+  font-size: 38px;
+  color: white;
+  font-family: 'RDC';
+}
+input {display: none;}
+label {cursor: pointer;}
+.styled select {
+  background: transparent;
+  width: 100px;
+  font-size: 16px;
+  height: 34px;
+}
+#inputsearch{
+	position: absolute;
+	right: 86%;
+  font-size: 14px;
+	width: 150px;
+	display: block;
+	height: 34px;
+	top: 2px;
+}
+.styled {
+  position: absolute;
+  top: 0;
+right: 92%;
+margin: 2px;
+  width: 100px;
+  height: 34px;
+  border-radius: 3px;
+  background-color: white;
+  
+}
+.nav 
+{
+	position: absolute;
+	right: 98%;
+	background-color: white;
+	user-select: none;
+	z-index: 20;
+	top: 0;
+  margin: 0;
+  bottom: 100%;
+
+}
+
+.nav__showmenu {
+    position: relative;
+    z-index: 3;
+    display: inline-block;
+    margin-left: -10px;
+    padding: 5px 10px 10px;
+    top: 2px;
+    font-size: 23px;
+    color: white;
+    background-color: black;
+}
+
+.nav__back {
+    position: fixed;
+    top: 0;
+    right: 0;  
+    bottom: 0;
+    left: 0;
+    transition: background-color .3s;
+}
+
+.menu, .menu__submenu{
+    list-style: none;
+    padding: 0;
+    color: #fff;
+    overflow: hidden;
+  }
+
+.menu {
+    z-index: 0;
+    position: fixed;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 220px;
+    margin: 0;
+    padding: 17px 0;
+    text-transform: uppercase;
+    line-height: 2em;
+    background-color: black;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateX(-100%);
+    transition: transform .3s;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.menu__submenu {
+    font-size: .8em;
+    background-color: white;
+    max-height: 0;
+    transition: max-height .3s ease-in-out;
+}
+
+.menu__showsub {
+    position: absolute;
+    right: 0;
+    margin-top: -34px;
+    padding: 10px;
+    line-height: normal;
+}
+
+.menu__item {  
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+}
+.menu__item:hover{
+	text-decoration: none;
+}
+.menu__submenu .menu__item 
+{
+	color:white;
+	background-color: black
+}
+
+/*.nav__check:checked~.nav__back {
+    z-index: 999;
+    width: 30%;
+   	height: 30%;
+    background-color: rgba(0,0,0,.2);
+    bottom: 0;
+}
+
+/*.menu__item:hover,.nav__showmenu:hover,.menu__showsub:hover {opacity: 0.7;}*/
+.menu::-webkit-scrollbar {display: none;}
+.nav__check:checked+.nav__showmenu {color:white;}
+.menu__check:checked~.menu__submenu {max-height: 100vh;}
+.menu__check:checked+.menu__showsub {transform: rotate(180deg);}
+.nav__check:checked~.menu {transform: translateX(0);}
+</style>
+<script>
+
+</script>
+</html>
